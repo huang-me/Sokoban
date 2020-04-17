@@ -7,12 +7,12 @@ class player : public QObject
 {
     Q_OBJECT
 
-public:
-    player();
+    public:
+        player();
 
-signals:
+    signals:
 
-public slots:
+    public slots:
 
 };
 
