@@ -75,80 +75,84 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
-    int tmpx = player_x, tmpy = player_y;
-    int memo[10][2];
-    // memorize the movable location
-    for(int j=0;j<len_move;j++) {
-        memo[j][0] = move[j][0];
-        memo[j][1] = move[j][1];
-    }
+    // if the game haven't done
+    if(player_x > 0 && player_y > 0) {
+        int tmpx = player_x, tmpy = player_y;
+        int memo[10][2];
+        // memorize the movable location
+        for(int j=0;j<len_move;j++) {
+            memo[j][0] = move[j][0];
+            memo[j][1] = move[j][1];
+        }
 
-    if(e->key() == Qt::Key_Right) {
-        player_x += 60; // move right
-    }
-    else if(e->key() == Qt::Key_Up) {
-        player_y -= 60; // move up
-    }
-    else if(e->key() == Qt::Key_Left) {
-        player_x -= 60; // move left
-    }
-    else if(e->key() == Qt::Key_Down) {
-        player_y += 60; // move down
-    }
+        if(e->key() == Qt::Key_Right) {
+            player_x += 60; // move right
+            step_count++;
+        }
+        else if(e->key() == Qt::Key_Up) {
+            player_y -= 60; // move up
+            step_count++;
+        }
+        else if(e->key() == Qt::Key_Left) {
+            player_x -= 60; // move left
+            step_count++;
+        }
+        else if(e->key() == Qt::Key_Down) {
+            player_y += 60; // move down
+            step_count++;
+        }
 
-    // push the movable boxes
-    for(int i=0;i<len_move;i++) {
-        if(player_x == move[i][0] && player_y == move[i][1]) {
-            move[i][0] += (player_x-tmpx);
-            move[i][1] += (player_y-tmpy);
+        // push the movable boxes
+        for(int i=0;i<len_move;i++) {
+            if(player_x == move[i][0] && player_y == move[i][1]) {
+                move[i][0] += (player_x-tmpx);
+                move[i][1] += (player_y-tmpy);
 
-            int tmpi = i;
-
-            for(int j=0;j<len_move;j++) {
-                if(tmpi == j) continue;
-                else if(move[j][0] == move[tmpi][0] && move[j][1] == move[tmpi][1]) {
-                    move[j][0] += (player_x-tmpx);
-                    move[j][1] += (player_y-tmpy);
-                    tmpi = j;
-                    j = 0;
-                }
-            }
-
-            // test if movable box is bumped into unmovable box
-            for(int j=0;j<len_unmove;j++) {
-                if(move[tmpi][0] == unmove[j][0]*60 && move[tmpi][1] == unmove[j][1]*60) {
-
-                    for(int k=0;k<len_move;k++) {
-                        move[k][0] = memo[k][0];
-                        move[k][1] = memo[k][1];
+                for(int j=0;j<len_move;j++) {
+                    if(i == j) continue;
+                    else if(move[j][0] == move[i][0] && move[j][1] == move[i][1]) {
+                        move[i][0] -= (player_x-tmpx);
+                        move[i][1] -= (player_y-tmpy);
+                        player_x = tmpx;
+                        player_y = tmpy;
+                        step_count--;
                     }
-
-                    player_x = tmpx;
-                    player_y = tmpy;
                 }
+
+                for(int j=0;j<len_unmove;j++) {
+                    if(unmove[j][0]*60 == move[i][0] && unmove[j][1]*60 == move[i][1]) {
+                        move[i][0] -= (player_x-tmpx);
+                        move[i][1] -= (player_y-tmpy);
+                        player_x = tmpx;
+                        player_y = tmpy;
+                        step_count--;
+                    }
+                }
+
+                ui->box1->move(move[0][0],move[0][1]);
+                ui->box2->move(move[1][0],move[1][1]);
+                ui->box3->move(move[2][0],move[2][1]);
+                ui->box4->move(move[3][0],move[3][1]);
+                ui->box5->move(move[4][0],move[4][1]);
+                ui->box6->move(move[5][0],move[5][1]);
+                ui->box7->move(move[6][0],move[6][1]);
             }
-
-            ui->box1->move(move[0][0],move[0][1]);
-            ui->box2->move(move[1][0],move[1][1]);
-            ui->box3->move(move[2][0],move[2][1]);
-            ui->box4->move(move[3][0],move[3][1]);
-            ui->box5->move(move[4][0],move[4][1]);
-            ui->box6->move(move[5][0],move[5][1]);
-            ui->box7->move(move[6][0],move[6][1]);
         }
-    }
 
-    // test if player is bumped into unmovable box
-    for(int i=0;i<len_unmove;i++) {
-        if(player_x == unmove[i][0]*60 && player_y == unmove[i][1]*60) {
-            player_x = tmpx;
-            player_y = tmpy;
+        // test if player is bumped into unmovable box
+        for(int i=0;i<len_unmove;i++) {
+            if(player_x == unmove[i][0]*60 && player_y == unmove[i][1]*60) {
+                player_x = tmpx;
+                player_y = tmpy;
+                step_count--;
+            }
         }
+
+        ui->player->move(player_x,player_y);
+        ui->steps->setNum(step_count);
+
+        if(testfinish() == 1) showfinish();
     }
-
-    ui->player->move(player_x,player_y);
-
-    if(testfinish() == 1) showfinish();
 }
 
 int MainWindow::testfinish() {
@@ -223,5 +227,8 @@ int MainWindow::testfinish() {
 
 void MainWindow::showfinish() {
     ui->player->move(420,0);
+    player_x = -1;
+    player_y = -1;
     ui->congrates->setVisible(true);
+    ui->game->setEnabled(false);
 }

@@ -335,9 +335,26 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="steps">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>30</y>
+      <width>111</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>btns</zorder>
    <zorder>game</zorder>
    <zorder>congrates</zorder>
+   <zorder>steps</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -348,8 +365,32 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="options">
+    <property name="title">
+     <string>Option</string>
+    </property>
+    <addaction name="actionStart_Game"/>
+    <addaction name="actionChoose_Level"/>
+    <addaction name="actionQuit_Game"/>
+   </widget>
+   <addaction name="options"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionStart_Game">
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
+  <action name="actionChoose_Level">
+   <property name="text">
+    <string>Choose Level</string>
+   </property>
+  </action>
+  <action name="actionQuit_Game">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
