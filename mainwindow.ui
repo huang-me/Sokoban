@@ -274,22 +274,6 @@
         <string/>
        </property>
       </widget>
-      <widget class="QLabel" name="finish_pic">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>170</y>
-         <width>200</width>
-         <height>120</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
      </widget>
     </widget>
    </widget>

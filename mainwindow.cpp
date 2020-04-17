@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap movable("/home/pd2/Desktop/2020-pd2-sokoban/imgs/movable.png");
     QPixmap unmovable("/home/pd2/Desktop/2020-pd2-sokoban/imgs/unmovable.png");
     QPixmap end_pic("/home/pd2/Desktop/2020-pd2-sokoban/imgs/endPoint.png");
-    QPixmap pass("/home/pd2/Desktop/2020-pd2-sokoban/imgs/pass.jpg");
 
     // set up the background size and position
     ui->label_bg->setPixmap(background.scaled(480,540));
@@ -29,13 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // unable the buttons
     ui->btns->setEnabled(false);
-
-    // put unmovable boxes where they should be
-    for(int i=0; i<len_unmove; i++) {
-        QLabel *tmp = new QLabel(ui->blocks);
-        tmp->setPixmap(unmovable.scaled(60,60));
-        tmp->setGeometry(unmove[i][0]*60,unmove[i][1]*60,60,60);
-    }
 
     // put movable boxes initial place
     ui->box1->setPixmap(movable.scaled(60,60));
@@ -53,16 +45,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->box7->setPixmap(movable.scaled(60,60));
     ui->box7->setGeometry(300,360,60,60);
 
-    // initialize the finish picture
-    ui->finish_pic->setPixmap(pass.scaled(200,120));
-    ui->finish_pic->setGeometry(130,170,200,120);
-    ui->finish_pic->setVisible(false);
-
     // set end point
-    for(int i=0; i<len_move; i++) {
-        QLabel *tmp = new QLabel(ui->game);
-        tmp->setPixmap(end_pic.scaled(15,15));
-        tmp->setGeometry(end[i][0]*60+23,end[i][1]*60+23,15,15);
+    ui->end1->setPixmap(end_pic.scaled(20,20));
+    ui->end1->setGeometry(60+20,120+20,20,20);
+    ui->end2->setPixmap(end_pic.scaled(20,20));
+    ui->end2->setGeometry(60+20,240+20,20,20);
+    ui->end3->setPixmap(end_pic.scaled(20,20));
+    ui->end3->setGeometry(180+20,360+20,20,20);
+    ui->end4->setPixmap(end_pic.scaled(20,20));
+    ui->end4->setGeometry(240+20,300+20,20,20);
+    ui->end5->setPixmap(end_pic.scaled(20,20));
+    ui->end5->setGeometry(240+20,420+20,20,20);
+    ui->end6->setPixmap(end_pic.scaled(20,20));
+    ui->end6->setGeometry(300+20,180+20,20,20);
+    ui->end7->setPixmap(end_pic.scaled(20,20));
+    ui->end7->setGeometry(360+20,360+20,20,20);
+
+    // put unmovable boxes where they should be
+    for(int i=0; i<len_unmove; i++) {
+        QLabel *tmp = new QLabel(ui->blocks);
+        tmp->setPixmap(unmovable.scaled(60,60));
+        tmp->setGeometry(unmove[i][0]*60,unmove[i][1]*60,60,60);
     }
 }
 
@@ -150,19 +153,75 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
 
 int MainWindow::testfinish() {
     int done = 0;
+    int test[10] = {0,0,0,0,0,0,0,0,0,0};
     for(int i=0;i<len_move;i++) {
         for(int j=0;j<len_move;j++) {
-            if(move[i][0] == end[j][0]*60 && move[i][1] == end[j][1]*60)
+            if(move[i][0] == end[j][0]*60 && move[i][1] == end[j][1]*60) {
                 done++;
+                test[j] = 1;
+            }
         }
     }
-    if(done == 2) return 1;
-//    if(done == len_move) return 1;
+
+    for(int i=0;i<len_move;i++) {
+            if(test[i] == 1) {
+                switch (i) {
+                case 0:
+                    ui->end1->setVisible(false);
+                    continue;
+                case 1:
+                    ui->end2->setVisible(false);
+                    continue;
+                case 2:
+                    ui->end3->setVisible(false);
+                    continue;
+                case 3:
+                    ui->end4->setVisible(false);
+                    continue;
+                case 4:
+                    ui->end5->setVisible(false);
+                    continue;
+                case 5:
+                    ui->end6->setVisible(false);
+                    continue;
+                case 6:
+                    ui->end7->setVisible(false);
+                    continue;
+                }
+            }
+            else {
+                switch (i) {
+                case 0:
+                    ui->end1->setVisible(true);
+                    continue;
+                case 1:
+                    ui->end2->setVisible(true);
+                    continue;
+                case 2:
+                    ui->end3->setVisible(true);
+                    continue;
+                case 3:
+                    ui->end4->setVisible(true);
+                    continue;
+                case 4:
+                    ui->end5->setVisible(true);
+                    continue;
+                case 5:
+                    ui->end6->setVisible(true);
+                    continue;
+                case 6:
+                    ui->end7->setVisible(true);
+                    continue;
+                }
+            }
+       }
+
+//    if(done == 2) return 1;
+    if(done == len_move) return 1;
     else return 0;
 }
 
 void MainWindow::showfinish() {
     ui->player->move(420,0);
     ui->congrates->setVisible(true);
-    ui->finish_pic->setVisible(true);
 }
