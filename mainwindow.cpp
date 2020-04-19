@@ -194,6 +194,7 @@ void MainWindow::showfinish() {
         player_x = -1;
         player_y = -1;
         ui->congrates->setVisible(true);
+        ui->noNext->setVisible(false);
         ui->game->setEnabled(false);
         ui->unmove->setEnabled(false);
     }
