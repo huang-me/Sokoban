@@ -10,8 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // unable the buttons
-    ui->btns->setEnabled(false);
+    // make buttons no use of arrow keys
+    ui->RestartBtn->setFocusPolicy(Qt::NoFocus);
+    ui->NextlevelBtn->setFocusPolicy(Qt::NoFocus);
 
     set_level1();
 
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->Level1,SIGNAL(triggered()),this,SLOT(set_level1()));
     connect(ui->Level2,SIGNAL(triggered()),this,SLOT(set_level2()));
     connect(ui->actionQuit_Game,SIGNAL(triggered()),this,SLOT(restartLevel()));
+    connect(ui->RestartBtn,SIGNAL(clicked()),this,SLOT(restartLevel()));
+    connect(ui->NextlevelBtn,SIGNAL(clicked()),this,SLOT(nextLevel()));
 }
 
 MainWindow::~MainWindow()
@@ -103,6 +106,11 @@ void MainWindow::keyPressEvent(QKeyEvent *e) {
         ui->player->move(player_x,player_y);
         ui->steps->setNum(step_count);
 
+        // player in the position of bomb
+        if(player_x == bomb_x && player_y == bomb_y) {
+            toggleMap();
+        }
+
         if(testfinish() == 1) showfinish();
     }
 }
@@ -172,18 +180,23 @@ int MainWindow::testfinish() {
             }
        }
 
-//    if(done == 2) return 1;
+    // all the movable boxes are at the end position
     if(done == len_move) return 1;
     else return 0;
 }
 
 void MainWindow::showfinish() {
-    ui->player->move(420,0);
-    player_x = -1;
-    player_y = -1;
-    ui->congrates->setVisible(true);
-    ui->game->setEnabled(false);
-    ui->unmove->setEnabled(false);
+    if(level_num == 1) {
+        set_level2();
+    }
+    else {
+        ui->player->move(420,0);
+        player_x = -1;
+        player_y = -1;
+        ui->congrates->setVisible(true);
+        ui->game->setEnabled(false);
+        ui->unmove->setEnabled(false);
+    }
 }
 
 void MainWindow::set_level1() {
@@ -198,6 +211,7 @@ void MainWindow::set_level1() {
     ui->congrates->setVisible(false);
     ui->game->setEnabled(true);
     ui->steps->setNum(step_count);
+    ui->noNext->setVisible(false);
 
     // import images
     QPixmap background("/home/pd2/Desktop/2020-pd2-sokoban/imgs/back.jpg");
@@ -358,6 +372,7 @@ void MainWindow::set_level2() {
     ui->congrates->setVisible(false);
     ui->game->setEnabled(true);
     ui->unmove->setEnabled(true);
+    ui->noNext->setVisible(false);
     ui->steps->setNum(step_count);
 
     // import images
@@ -511,4 +526,14 @@ void MainWindow::restartLevel() {
         set_level1();
     else
         set_level2();
+}
+
+void MainWindow::toggleMap() {
+    if(level_num == 1) set_level2();
+    else set_level1();
+}
+
+void MainWindow::nextLevel() {
+    if(level_num == 1) set_level2();
+    else ui->noNext->setVisible(true);
 }

@@ -64,6 +64,8 @@ public slots:
     void set_level1();
     void set_level2();
     void restartLevel();
+    void toggleMap();
+    void nextLevel();
 
 private:
     Ui::MainWindow *ui;

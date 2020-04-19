@@ -829,10 +829,27 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="noNext">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>120</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the last level!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>btns</zorder>
    <zorder>game</zorder>
    <zorder>congrates</zorder>
    <zorder>steps</zorder>
+   <zorder>noNext</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
