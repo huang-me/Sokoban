@@ -1,6 +1,6 @@
 # 2020-pd2-sokoban
 ## Video link
-
+- https://youtu.be/uLPY05m0ols
 ---
 ## How to play
 1. The user can control the people in the game to push the boxes without X mark, try to move all of them in red point.
