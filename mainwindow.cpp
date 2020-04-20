@@ -213,6 +213,7 @@ void MainWindow::set_level1() {
     ui->game->setEnabled(true);
     ui->steps->setNum(step_count);
     ui->noNext->setVisible(false);
+    ui->unmove->setEnabled(true);
 
     // import images
     QPixmap background("/home/pd2/Desktop/2020-pd2-sokoban/imgs/back.jpg");
@@ -348,6 +349,7 @@ void MainWindow::set_level1() {
     ui->unmove33->setGeometry(unmove[32][0]*60,unmove[32][1]*60,60,60);
     ui->unmove34->setPixmap(unmovable.scaled(60,60));
     ui->unmove34->setGeometry(unmove[33][0]*60,unmove[33][1]*60,60,60);
+    ui->unmove35->setVisible(true);
     ui->unmove35->setPixmap(unmovable.scaled(60,60));
     ui->unmove35->setGeometry(unmove[34][0]*60,unmove[34][1]*60,60,60);
 
