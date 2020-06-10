@@ -216,12 +216,12 @@ void MainWindow::set_level1() {
     ui->unmove->setEnabled(true);
 
     // import images
-    QPixmap background("/home/pd2/Desktop/2020-pd2-sokoban/imgs/back.jpg");
-    QPixmap player_pic("/home/pd2/Desktop/2020-pd2-sokoban/imgs/player_front.png");
-    QPixmap movable("/home/pd2/Desktop/2020-pd2-sokoban/imgs/movable.png");
-    QPixmap unmovable("/home/pd2/Desktop/2020-pd2-sokoban/imgs/unmovable.png");
-    QPixmap end_pic("/home/pd2/Desktop/2020-pd2-sokoban/imgs/endPoint.png");
-    QPixmap bomb("/home/pd2/Desktop/2020-pd2-sokoban/imgs/bomb.png");
+    QPixmap background(":/myfile/imgs/back.jpg");
+    QPixmap player_pic(":/myfile/imgs/player_front.png");
+    QPixmap movable(":/myfile/imgs/movable.png");
+    QPixmap unmovable(":/myfile/imgs/unmovable.png");
+    QPixmap end_pic(":/myfile/imgs/endPoint.png");
+    QPixmap bomb(":/myfile/imgs/bomb.png");
 
     // setup the bomb
     ui->bomb->setPixmap(bomb.scaled(60,60));
@@ -379,12 +379,12 @@ void MainWindow::set_level2() {
     ui->steps->setNum(step_count);
 
     // import images
-    QPixmap background("/home/pd2/Desktop/2020-pd2-sokoban/imgs/back.jpg");
-    QPixmap player_pic("/home/pd2/Desktop/2020-pd2-sokoban/imgs/player_front.png");
-    QPixmap movable("/home/pd2/Desktop/2020-pd2-sokoban/imgs/movable.png");
-    QPixmap unmovable("/home/pd2/Desktop/2020-pd2-sokoban/imgs/unmovable.png");
-    QPixmap end_pic("/home/pd2/Desktop/2020-pd2-sokoban/imgs/endPoint.png");
-    QPixmap bomb("/home/pd2/Desktop/2020-pd2-sokoban/imgs/bomb.png");
+    QPixmap background(":/myfile/imgs/back.jpg");
+    QPixmap player_pic(":/myfile/imgs/player_front.png");
+    QPixmap movable(":/myfile/imgs/movable.png");
+    QPixmap unmovable(":/myfile/imgs/unmovable.png");
+    QPixmap end_pic(":/myfile/imgs/endPoint.png");
+    QPixmap bomb(":/myfile/imgs/bomb.png");
 
     // set up the background size and position
     ui->label_bg->setPixmap(background.scaled(480,540));

@@ -1,2 +1,12 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/myfile">
+        <file>imgs/back.jpg</file>
+        <file>imgs/bomb.png</file>
+        <file>imgs/endPoint.png</file>
+        <file>imgs/movable.png</file>
+        <file>imgs/pass.jpg</file>
+        <file>imgs/player_front.png</file>
+        <file>imgs/unmovable.png</file>
+        <file>imgs/unnamed.jpg</file>
+    </qresource>
+</RCC>
